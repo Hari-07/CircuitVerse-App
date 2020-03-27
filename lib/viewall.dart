@@ -6,7 +6,7 @@ import 'main.dart';
 
 
 class Attributes{
-  final String name;
+  String name;
 
   Attributes({
     this.name,
@@ -40,15 +40,14 @@ class Project {
 }
 
 class Data {
-  List<Project> projects;
+  final List<Project> projects;
 
   Data({
     this.projects,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
-    var list  = json['images'] as List;
-    print(list.runtimeType);
+    var list  = json['data'] as List;
     List<Project> projectsList = list.map((i) => Project.fromJson(i)).toList();
     return Data(
       projects : projectsList,
@@ -69,26 +68,27 @@ Future<Data> getData() async {
 
 
 class AllProjects extends StatelessWidget {  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Project Info'),
-      ),
-      backgroundColor: Colors.white,
-      body:FutureBuilder<Data>(
-        future: getData(),
-        builder: (context, snapshot) {
-          
-          if(snapshot.hasData)
-            return Text('Title from Post JSON : ${snapshot.data.projects[0].attributes.name}');
-          else
-            return Text('The record you wish access could not be found');
-        }
-      )
-    );
-  }
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			appBar: AppBar(
+				title: Text('Project Info'),
+			),
+			backgroundColor: Colors.white,
+			body:FutureBuilder<Data>(
+				future: getData(),
+				builder: (context, snapshot) {
+					
+					if(snapshot.hasData)
+						return Text('${snapshot.data.projects[0].attributes.name}',style: TextStyle(fontSize: 30),);
+					else
+						return Text('The record you wish access could not be found');
+				}
+			)
+		);
+	}
 }
+
 
 
 

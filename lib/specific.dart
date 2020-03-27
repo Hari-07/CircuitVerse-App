@@ -61,10 +61,9 @@ Data dataFromJson (String str) {
 
 //URL OF THE API
 
-var id = '2';
+var id = '';
 
 Future<Data> getData() async {
-	
   final response = await http.get('$url/$id');
   return dataFromJson(response.body);
 }
@@ -134,15 +133,7 @@ class _SpecificProjectState extends State<SpecificProject> {
 						children: <Widget>[
 							Padding(
 							  padding: EdgeInsets.all(30),
-							  child: FutureBuilder<Data>(
-							  	future: getData(),
-							  	builder: (context, snapshot) {
-							  		if(snapshot.hasData)
-							  			return Text('${snapshot.data.project.attributes.name}',style: TextStyle(fontSize: 30),);
-							  		else
-							  			return Text('Not Found',style: TextStyle(fontSize: 30),);
-							  	}
-            		),
+							  child: Result(),
 							),
 						],
 					)
@@ -168,6 +159,22 @@ class _SpecificProjectState extends State<SpecificProject> {
           children: buildChildren(),
         ),
       )
+    );
+  }
+}
+
+class Result extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Data>(
+    	future: getData(),
+    	builder: (context, snapshot) {
+    		if(snapshot.hasData)
+    			return Text('${snapshot.data.project.attributes.name}',style: TextStyle(fontSize: 30),);
+    		else
+    			return Text('Not Found',style: TextStyle(fontSize: 30),);
+    	}
     );
   }
 }
