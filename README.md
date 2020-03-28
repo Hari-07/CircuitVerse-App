@@ -1,16 +1,9 @@
-# cvdemo
+# CircuitVerse App
 
-A new Flutter project.
+This app is a demo which displays public projects from the circuitverse database
 
-## Getting Started
+## Setup
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In lib>main.dart , URL is set to the internal loopback IP of AVD. 
+If using physical device for testing the url must be set to that of the IP of host computer.
+Once API Back-End is merged into main repo, the URL can be change to "circuitverse.org"
