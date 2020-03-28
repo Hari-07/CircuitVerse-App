@@ -63,12 +63,19 @@ Data dataFromJson (String str) {
 }
 
 Future<Data> getData() async {
-  final response = await http.get('$url');
+  final response = await http.get('$url?page=$page');
   return dataFromJson(response.body);
 }
 
+int page = 1;
 
-class AllProjects extends StatelessWidget {  
+class AllProjects extends StatefulWidget {  
+
+  @override
+  _AllProjectsState createState() => _AllProjectsState();
+}
+
+class _AllProjectsState extends State<AllProjects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +99,15 @@ class AllProjects extends StatelessWidget {
           else
             return Text('NotFound');
         }
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            page+=1;
+          });
+        },
+        child: Icon(Icons.chevron_right),
+      ),
     );
   }
 }
