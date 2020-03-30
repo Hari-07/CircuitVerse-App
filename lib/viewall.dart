@@ -4,6 +4,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'main.dart';
 
+//Initiialisations
+List<Project> P = [];
+int page = 1;
+bool full = false;
 
 class Attributes{
   final String name;
@@ -48,9 +52,14 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     var list  = json['data'] as List;
+  
     List<Project> projectsList = list.map((i) => Project.fromJson(i)).toList();
+    print(projectsList);
+    if(projectsList.isEmpty)
+      full = true;
+    P.addAll(projectsList);
     return Data(
-      projects : projectsList,
+      projects : P,
     );
   }
 }
@@ -66,7 +75,7 @@ Future<Data> getData() async {
   return dataFromJson(response.body);
 }
 
-int page = 1;
+
 
 class AllProjects extends StatefulWidget {  
 
@@ -78,6 +87,23 @@ class AllProjects extends StatefulWidget {
 }
 
 class _AllProjectsState extends State<AllProjects> {
+  
+  ScrollController sc;
+  
+  void initstate() {
+    sc = ScrollController();
+    sc.addListener(scListener);
+  }
+
+  scListener() {
+    print("Changed");
+    if( sc.offset >= sc.position.maxScrollExtent && !sc.position.outOfRange) {
+      setState(() {
+        print("Reached Bottom");
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +117,7 @@ class _AllProjectsState extends State<AllProjects> {
           
           if(snapshot.hasData)
             return ListView.builder(
+              controller: sc,
               itemCount: snapshot.data.projects.length,
               itemBuilder: (context,index) {
                 return ListTile(
@@ -104,11 +131,13 @@ class _AllProjectsState extends State<AllProjects> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            page+=1;
-          });
+          if(!full) {
+            setState(() {
+              page+=1;
+            }); 
+          }
         },
-        child: Icon(Icons.chevron_right),
+        child: Icon(Icons.add),
       ),
     );
   }
