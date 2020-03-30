@@ -48,7 +48,6 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) {
     var list  = json['data'] as List;
-    print(list.runtimeType);
     List<Project> projectsList = list.map((i) => Project.fromJson(i)).toList();
     return Data(
       projects : projectsList,
@@ -72,7 +71,10 @@ int page = 1;
 class AllProjects extends StatefulWidget {  
 
   @override
-  _AllProjectsState createState() => _AllProjectsState();
+  _AllProjectsState createState() {
+    page = 1;
+    return _AllProjectsState();
+  }
 }
 
 class _AllProjectsState extends State<AllProjects> {
