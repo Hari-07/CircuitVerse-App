@@ -30,25 +30,31 @@ class HomePage extends StatelessWidget {
 					Column(
 						mainAxisAlignment: MainAxisAlignment.center,
 						children: <Widget>[
-							MaterialButton(
-								height: 40,
-								minWidth: 100,
-								color: Colors.blue,
-								textColor: Colors.white,
-								child: Text('View All', style: TextStyle(fontSize: 15),),
-								onPressed: () {
-									Navigator.push(context,MaterialPageRoute(builder: (context) => AllProjects()),);
-								},
+							Padding(
+							  padding: const EdgeInsets.all(60),
+							  child: MaterialButton(
+							  	height: 80,
+							  	minWidth: 200,
+                  color: Colors.blue,
+							  	textColor: Colors.white,
+							  	child: Text('View All', style: TextStyle(fontSize: 25),),
+							  	onPressed: () {
+							  		Navigator.push(context,MaterialPageRoute(builder: (context) => AllProjects()),);
+							  	},
+							  ),
 							),
-							MaterialButton(
-								color: Colors.blue,
-								height: 40,
-								minWidth: 100,
-								textColor: Colors.white,
-								child: Text('View by ID'),
-								onPressed: () {
-									Navigator.push(context,MaterialPageRoute(builder: (context) => SpecificProject()),);
-								},
+							Padding(
+							  padding: const EdgeInsets.all(60),
+							  child: MaterialButton(
+							  	height: 80,
+							  	minWidth: 200,
+							  	color: Colors.blue,
+							  	textColor: Colors.white,
+							  	child: Text('View by ID', style: TextStyle(fontSize: 25),),
+							  	onPressed: () {
+							  		Navigator.push(context,MaterialPageRoute(builder: (context) => SpecificProject()),);
+							  	},
+							  ),
 							)
 						],
 					),
